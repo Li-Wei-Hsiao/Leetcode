@@ -1,0 +1,26 @@
+class Solution {
+    public boolean halvesAreAlike(String s) {
+        char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        int a1 = 0;
+        for (int i = 0; i < s.length() / 2; i ++)
+        {
+            for (int  j = 0; j < vowels.length; j ++)
+            {
+                if (s.charAt(i) == vowels[j])
+                    a1 ++;
+            }
+        }
+        for (int i = s.length() / 2; i < s.length(); i ++)
+        {
+            for (int  j = 0; j < vowels.length; j ++)
+            {
+                if (s.charAt(i) == vowels[j])
+                    a1 --;
+            }
+        }
+        if (a1 == 0)
+            return(true);
+        else
+            return(false);
+    }
+}
