@@ -1,0 +1,38 @@
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        int answer = 0;
+        
+        for (int i = boxTypes.length - 2; i >= 0; i --)
+        {
+            for (int j = i; j < boxTypes.length - 1; j ++)
+            {
+                if (boxTypes[j][1] > boxTypes[j + 1][1])
+                {
+                    int[] temp = boxTypes[j];
+                    boxTypes[j] = boxTypes[j + 1];
+                    boxTypes[j + 1] = temp;
+                }
+            }
+        }
+
+        for (int i = boxTypes.length - 1; i > -1; i --)
+        {
+            if (truckSize >= boxTypes[i][0])
+            {
+                answer += boxTypes[i][0] * boxTypes[i][1];
+                truckSize -= boxTypes[i][0];
+            }
+            else if (truckSize > 0)
+            {
+                answer += truckSize * boxTypes[i][1];
+                break;
+                //truckSize = 0;
+            }
+            else if(truckSize == 0)
+                break;
+        }
+
+        return (answer);
+        
+    }
+}
