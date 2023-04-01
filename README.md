@@ -5,7 +5,7 @@
 * This is my practice on Leetcode.
 * 
 * 
-* 6 - Eazy, 1- Medium, 0- Hard -2023/1/31
+* 10 - Eazy, 2- Medium, 1- Hard -2023/1/31
 *
 */
 
