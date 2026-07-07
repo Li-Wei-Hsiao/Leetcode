@@ -1,0 +1,25 @@
+int maxProduct(int n) {
+    uint8_t i = 0;
+    uint8_t j = 0;
+
+    for (;;) {
+        uint8_t temp = n % 10;
+
+        if (temp > i) {
+            j = i;
+            i = temp;
+        } else {
+            if (temp > j)
+                j = temp;
+        }
+        
+        if (n / 10 == 0) {
+            break;
+        }
+        else {
+            n /= 10;
+        }
+    }
+
+    return i * j;
+}
