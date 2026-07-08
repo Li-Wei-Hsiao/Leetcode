@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+struct ListNode **splitListToParts(struct ListNode *head, int k, int *returnSize) {
+    // Create space for return
+    struct ListNode **res = (struct ListNode **)malloc(k * sizeof(struct ListNode *));
+
+    // update returnSize
+    *returnSize = k;
+
+    // If head == NULL, set all be null and return
+    if (head == NULL) {
+        for (int i = 0; i < k; i ++) res[i] = NULL;
+        return res;
+    }
+
+    // Get total node
+    uint32_t total = 1;
+    struct ListNode *now = head;
+    for (;;) {
+        if (now->next != NULL) {
+            total ++;
+            now = now->next;
+        } else {
+            break;
+        }
+    }
+
+    if (total > k) {
+        uint32_t quotient = total / k;
+        uint32_t remainder = total % k;
+        printf("quotient = %d, remainder = %d\n", quotient, remainder);
+        now = head;
+        for (int i = 0; i < k; i ++) {
+            res[i] = now;
+            if (i < remainder) {
+                for (int j = 0; j < quotient; j ++) {
+                    now = now->next;
+                }
+            } else {
+                for (int j = 0; j < quotient - 1; j ++)  now = now->next;
+            }
+            if (now->next != NULL) {
+                struct ListNode *temp = now->next;
+                now->next = NULL;
+                now = temp;
+            }
+        }
+    } else {
+        now = head;
+        int i = 0;
+        for (i; i < total; i ++) {
+            res[i] = now;
+            if (now->next != NULL) {
+                struct ListNode *temp = now->next;
+                now->next = NULL;
+                now = temp;
+            }
+        }
+        for (i; i < k; i++) {
+            res[i] = NULL;
+        }
+    }
+    return res;
+}
+
+
+
+
+
+
