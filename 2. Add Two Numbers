@@ -1,0 +1,53 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+    bool overflow = false, l1_done = false, l2_done = false;
+
+    struct ListNode *dummy = (struct ListNode *)malloc(sizeof(struct ListNode));
+    dummy->next = NULL;
+    struct ListNode *curr = dummy;
+
+    for (;;) {
+        struct ListNode *new_node = (struct ListNode *)malloc(sizeof(struct ListNode));
+
+        uint8_t temp = 0;
+        if (l1_done == false && l2_done == false) {
+            temp = l1->val + l2->val;
+        } else if (l1_done && l2_done == false) {
+            temp = l2->val;
+        } else if (l2_done && l1_done == false) {
+            temp = l1->val;
+        } else if (overflow) {
+            temp = 0;
+        }
+
+        if (l1->next == NULL) l1_done = true;
+        else l1 = l1->next;
+        if (l2->next == NULL) l2_done = true;
+        else l2 = l2->next;
+        
+        if (overflow) temp ++; // If overflow add 1
+        if (temp / 10 != 0) overflow = true;
+        else overflow = false;
+
+        new_node->val = temp % 10;
+        //printf("\'%d\', ", new_node->val);
+            
+        curr->next = new_node;
+        curr = curr->next;
+
+        if (l1_done && l2_done && overflow == false) {
+            curr->next = NULL;
+            break;
+        }
+    }
+
+    struct ListNode *res = dummy->next;
+    free(dummy);
+    return res;
+}
