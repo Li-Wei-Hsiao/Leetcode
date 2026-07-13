@@ -1,0 +1,25 @@
+int mySqrt(int x) {
+    uint16_t ans = 0; // 2^31 - < 16 bits
+
+    for (int i = 15; i >= 0; i --) {
+        for (int j = i; j >= 0; j --) {
+            // printf("j = %d, (1 << j) = %ld\n", j, (1 << j));
+            uint32_t temp = (1 << j) + ans; temp *= temp;
+            // printf("temp = %ld\n", temp);
+            if (temp == x) {
+                // printf("return\n");
+                ans += (1 << j);
+                return ans;
+            } 
+            else if (temp < x) {
+                // printf("get, j = %d\n", j);
+                ans += (1 << j);
+                i = j;
+                break;
+            }
+        }
+        // printf("\n");
+    }
+
+    return ans;
+}
