@@ -1,0 +1,21 @@
+int lengthOfLongestSubstring(char* s) {
+    if (s == NULL) return 0;
+    else if (strlen(s) == 1) return 1;
+
+    uint16_t left = 0, right = 0;
+    uint16_t length = 0;
+    for (right = 1; right < strlen(s); right++) {
+        for (int i = left; i < right; i++) {
+            if (s[i] == s[right]) {
+                left = i + 1;
+                break;
+            }
+        }
+        if (right - left + 1 > length) length = right - left + 1;
+
+        // printf("left/right = %d-%d\n", left, right);
+        // printf("length = %d\n", length);
+    }
+
+    return length;
+}
